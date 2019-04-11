@@ -47,6 +47,60 @@ table addTable(table t,int elem,int add){
 //从顺序表中删除元素
 table delTable(table t,int add){
     if(add > t.length||add <1){
-        
+        printf("被删除的元素位置有误");
+        exit(0);
     }
+    for(int i=add;i<t.length;i++){
+        t.head[i-1] = t.head[i];
+    }
+    t.length--;
+    return t;
+}
+//从顺序表中选择某个元素
+int selectTable(table t,int elem){
+    for(int i=0;i<t.length;i++){
+        if(t.head[i] == elem){
+            return i+1;
+        }
+    }
+    return -1;
+}
+//修改某个顺序表中的元素
+table amendTable(table t,int elem,int newElem){
+    int add = selectTable(t,elem);
+    t.head[add-1] = newElem;
+    return t;
+}
+//显示我们顺序表中的元素
+void displayTable(table t){
+    for(int i=0;i<t.length;i++){
+        printf("%d",t.head[i]);
+    }
+    printf("\n");
+}
+int main(){
+    table t1=initTable();
+    for(int i=1;i<=Size;i++){
+        t1.head[i-1] = i;
+        t1.length++;
+    }
+    printf("原顺序表：\n");
+    displayTable(t1);
+  
+    printf("删除元素1:\n");
+    t1=delTable(t1, 1);
+    displayTable(t1);
+  
+    printf("在第2的位置插入元素5:\n");
+    t1=addTable(t1, 5, 2);
+    displayTable(t1);
+  
+    printf("查找元素3的位置:\n");
+    int add=selectTable(t1, 3);
+    printf("%d\n",add);
+  
+    printf("将元素3改为6:\n");
+    t1=amendTable(t1, 3, 6);
+    displayTable(t1);
+    return 0;
 }
