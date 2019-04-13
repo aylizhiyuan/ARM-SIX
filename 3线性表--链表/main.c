@@ -10,16 +10,40 @@ link * initLink();
 void display(link *p);
 //链表插入的函数，p是链表，elem是插入的结点的数据域，add是插入的位置
 link * insertElem(link * p,int elem,int add);
+//删除结点的函数，p代表操作链表，add代表删除节点的位置
+link * delElem(link * p,int add);
+//查找结点的函数，elem为目标结点的数据域的值
+int selectElem(link * p,int elem);
+//更新结点的函数，newElem为新的数据域的值
+link *amendElem(link * p,int add,int newElem);
 int main(){
     //初始化链表（1，2，3，4）
-    printf("初始化链表为:\n");
-    link *p = initLink();
+    printf("初始化链表为：\n");
+    link *p=initLink();
     display(p);
-    printf("在第四个位置插入元素5:\n");
-    p = insertElem(p,5,4);
+  
+    printf("在第4的位置插入元素5：\n");
+    p=insertElem(p, 5, 4);
+    display(p);
+  
+    printf("删除元素3:\n");
+    p=delElem(p, 3);
+    display(p);
+  
+    printf("查找元素2的位置为：\n");
+    int address=selectElem(p, 2);
+    if (address==-1) {
+        printf("没有该元素");
+    }else{
+        printf("元素2的位置为：%d\n",address);
+    }
+    printf("更改第3的位置上的数据为7:\n");
+    p=amendElem(p, 3, 7);
     display(p);
     return 0;
 }
+
+
 link *initLink(){
     link *p = NULL;//创建头指针
     link *temp = (link*)malloc(sizeof(link));//创建首元节点
@@ -66,5 +90,43 @@ link * insertElem(link * p,int elem,int add){
     c->next = temp->next;
     //将4的指针指向新节点5
     temp->next = c;
+    return p;
+}
+//删除链表的节点
+link *delElem(link *p,int add){
+    link *temp = p;
+    //依然是找到被删除节点的上一个节点
+    for(int i=1;i<add;i++){
+        temp = temp->next;
+    }
+    //单独设置一个指针指向被删除的节点，以防止丢失
+    link *del = temp->next;
+    //删除某个节点的方法就是更改前一个节点的指针
+    temp->next = temp->next->next;
+    free(del);//手动释放该节点，防止内存泄漏
+    return p;
+}
+//选择节点中的某个
+int selectElem(link *p,int elem){
+    link *t = p;
+    int i = 1;
+    while(t->next){
+        t = t->next;
+        if(t->elem == elem){
+            return i;
+        }
+        i++;  
+    }
+    return -1;
+}
+//修改某个节点
+link *amendElem(link *p,int add,int newElem){
+    link *temp = p;
+    temp = temp->next;//temp指向首元节点
+    //temp指向被删除的结点
+    for(int i=1;i<add;i++){
+        temp = temp->next;
+    }
+    temp->elem = newElem;
     return p;
 }
