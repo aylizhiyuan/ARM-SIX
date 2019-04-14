@@ -68,15 +68,22 @@ int initArr(component *array){
     array[tempBody].cur=0;//新的链表最后一个结点的指针设置为0
     return body;
 }
-
+//body表示链表的头结点在数组中的位置，add表示插入元素的位置，a代表插入的数据
 void insertArr(component * array,int body,int add,char a){
     int tempBody=body;
+    //add是3，在3的位置插入新的数据
+    //i的取值就是1，2
+    //tempBody的取值就后是a[2]的游标3
     for (int i=1; i<add; i++) {
         tempBody=array[tempBody].cur;
     }
+    //找到空闲的a[6]
     int insert=mallocArr(array);
+    //将a[6]的下一个游标指向a[3]中的游标
     array[insert].cur=array[tempBody].cur;
+    //a[6].data = 插入的数据
     array[insert].data=a;
+    //a[3].cur = 6
     array[tempBody].cur=insert;
   
 }
