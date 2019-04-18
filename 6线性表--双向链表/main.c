@@ -21,6 +21,24 @@ int main(){
     return 0;
 }
 line *initLine(line *head){
+    //创建一个首元节点，链表的头指针为head
+    head = (line*)malloc(sizeof(line));
+    head->prior = NULL;
+    head->next = NULL;
+    head->data = 1;
+    //晟敏一个指向首元节点的指针，方便后期添加节点
+    line * list = head;
+    for(int i=2;i<=5;i++){
+        //创建新的节点并初始化
+        line * body = (line*)malloc(sizeof(line));
+        body->prior = NULL;
+        body->next = NULL;
+        body->data = 1;
+
+        //新的节点与链表最后一个节点建立关系
+        
+
+    }
 
 }
 void display(line * head){
