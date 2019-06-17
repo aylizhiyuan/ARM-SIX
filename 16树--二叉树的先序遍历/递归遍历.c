@@ -51,4 +51,5 @@ int main() {
     BiTree Tree;
     CreateBiTree(&Tree);
     printf("先序遍历: \n");
+    PreOrderTraverse(Tree);
 }

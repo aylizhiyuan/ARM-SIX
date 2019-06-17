@@ -15,10 +15,11 @@ void Select(HuffmanTree HT, int end, int *s1, int *s2)
     int min1, min2;
     //遍历数组初始下标为 1
     int i = 1;
-    //找到还没构建树的结点
+    //找到还没构建树的结点,如果是初次的话，那么应该是第一个值
     while(HT[i].parent != 0 && i <= end){
         i++;
     }
+    //取出这个值的权值
     min1 = HT[i].weight;
     *s1 = i;
    
