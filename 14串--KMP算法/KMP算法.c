@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 void Next(char*T,int *next){
-    //next数组里面的数据是{a,b,c,d,e}
+    //next数组里面的数据是{a,b,c,a,c}
     int i=1;
     next[1]=0;
     int j=0; 
