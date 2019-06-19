@@ -18,7 +18,7 @@ void Select(HuffmanTree HT, int end, int *s1, int *s2)
     //找到还没构建树的结点,如果是初次的话，那么应该是第一个值
     while(HT[i].parent != 0 && i <= end){
         i++;
-    }
+    }                   
     //取出这个值的权值
     min1 = HT[i].weight;
     *s1 = i;
@@ -136,7 +136,7 @@ int main(void)
     int w[5] = {2, 8, 7, 6, 5};
     int n = 5;
     HuffmanTree htree;
-    HuffmanCode htable;
+    HuffmanCode htable;  
     CreateHuffmanTree(&htree, w, n);
     HuffmanCoding(htree, &htable, n);
     PrintHuffmanCode(htable,w, n);
