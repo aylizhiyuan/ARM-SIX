@@ -1,84 +1,81 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define TElemType char//ºê¶¨Òå£¬½áµãÖĞÊı¾İÓòµÄÀàĞÍ
-//Ã¶¾Ù£¬LinkÎª0£¬ThreadÎª1
+#define TElemType char
+
 typedef enum {
     Link,
     Thread
 }PointerTag;
-//½áµã½á¹¹¹¹Ôì
+
 typedef struct BiThrNode{
-    TElemType data;//Êı¾İÓò
-    struct BiThrNode* lchild,*rchild;//×óº¢×Ó£¬ÓÒº¢×ÓÖ¸ÕëÓò
-    PointerTag Ltag,Rtag;//±êÖ¾Óò£¬Ã¶¾ÙÀàĞÍ
+    TElemType data;
+    struct BiThrNode* lchild,*rchild;
+    PointerTag Ltag,Rtag;
 }BiThrNode,*BiThrTree;
 
 BiThrTree pre=NULL;
 
-//²ÉÓÃÇ°Ğò³õÊ¼»¯¶ş²æÊ÷
-//ÖĞĞòºÍºóĞòÖ»Ğè¸Ä±ä¸³ÖµÓï¾äµÄÎ»ÖÃ¼´¿É
 void CreateTree(BiThrTree * tree){
     char data;
     scanf("%c",&data);
     if (data!='#'){
         if (!((*tree)=(BiThrNode*)malloc(sizeof(BiThrNode)))){
-            printf("ÉêÇë½áµã¿Õ¼äÊ§°Ü");
+            printf("ç”³è¯·èŠ‚ç‚¹ç©ºé—´å¤±è´¥");
             return;
         }else{
-            (*tree)->data=data;//²ÉÓÃÇ°Ğò±éÀú·½Ê½³õÊ¼»¯¶ş²æÊ÷
-            CreateTree(&((*tree)->lchild));//³õÊ¼»¯×ó×ÓÊ÷
-            CreateTree(&((*tree)->rchild));//³õÊ¼»¯ÓÒ×ÓÊ÷
+            (*tree)->data=data;
+            CreateTree(&((*tree)->lchild));
+            CreateTree(&((*tree)->rchild));
         }
     }else{
         *tree=NULL;
     }
 }
-//ÖĞĞò¶Ô¶ş²æÊ÷½øĞĞÏßË÷»¯
+
 void InThreading(BiThrTree p){
-    //Èç¹ûµ±Ç°½áµã´æÔÚ
+    
     if (p) {
-        InThreading(p->lchild);//µİ¹éµ±Ç°½áµãµÄ×ó×ÓÊ÷£¬½øĞĞÏßË÷»¯
-        //Èç¹ûµ±Ç°½áµãÃ»ÓĞ×óº¢×Ó£¬×ó±êÖ¾Î»ÉèÎª1£¬×óÖ¸ÕëÓòÖ¸ÏòÉÏÒ»½áµã pre
+        InThreading(p->lchild);
         if (!p->lchild) {
             p->Ltag=Thread;
             p->lchild=pre;
         }
-        //Èç¹û pre Ã»ÓĞÓÒº¢×Ó£¬ÓÒ±êÖ¾Î»ÉèÎª 1£¬ÓÒÖ¸ÕëÓòÖ¸Ïòµ±Ç°½áµã¡£
+       
         if (pre&&!pre->rchild) {
             pre->Rtag=Thread;
             pre->rchild=p;
         }
-        pre=p;//preÖ¸Ïòµ±Ç°½áµã
-        InThreading(p->rchild);//µİ¹éÓÒ×ÓÊ÷½øĞĞÏßË÷»¯
+        pre=p;
+        InThreading(p->rchild);
     }
 }
-//ÖĞĞò±éÀúÏßË÷¶ş²æÊ÷
+
 void InOrderThraverse_Thr(BiThrTree p)
 {
     while(p)
     {
-        //Ò»Ö±ÕÒ×óº¢×Ó£¬×îºóÒ»¸öÎªÖĞĞòĞòÁĞÖĞÅÅµÚÒ»µÄ
+        
         while(p->Ltag == Link){
             p = p->lchild;
         }
-        printf("%c ", p->data);  //²Ù×÷½áµãÊı¾İ
-        //µ±½áµãÓÒ±êÖ¾Î»Îª1Ê±£¬Ö±½ÓÕÒµ½Æäºó¼Ì½áµã
+        printf("%c ", p->data);  
+        
         while(p->Rtag == Thread && p->rchild !=NULL)
         {
             p = p->rchild;
             printf("%c ", p->data);
         }
-        //·ñÔò£¬°´ÕÕÖĞĞò±éÀúµÄ¹æÂÉ£¬ÕÒÆäÓÒ×ÓÊ÷ÖĞ×î×óÏÂµÄ½áµã£¬Ò²¾ÍÊÇ¼ÌĞøÑ­»·±éÀú
+       
         p = p->rchild;
     }
 }
 
 int main() {
     BiThrTree t;
-    printf("ÊäÈëÇ°Ğò¶ş²æÊ÷:\n");
+    printf("è¾“å…¥å‰åºäºŒå‰æ ‘:\n");
     CreateTree(&t);
     InThreading(t);
-    printf("Êä³öÖĞĞòĞòÁĞ:\n");
+    printf("è¾“å‡ºä¸­åºåºåˆ—:\n");
     InOrderThraverse_Thr(t);
     return 0;
 }

@@ -21,7 +21,7 @@ void CreateTree(BiThrTree * tree){
     scanf("%c",&data);
     if (data!='#'){
         if (!((*tree)=(BiThrNode*)malloc(sizeof(BiThrNode)))){
-            printf("测试");
+            printf("申请节点空间失败");
             return;
         }else{
             (*tree)->data=data;
@@ -57,7 +57,7 @@ void InOrderThread_Head(BiThrTree *h, BiThrTree t)
     
     (*h) = (BiThrTree)malloc(sizeof(BiThrNode));
     if((*h) == NULL){
-        printf("test");
+        printf("申请内存失败");
         return ;
     }
     (*h)->rchild = *h;
@@ -101,10 +101,10 @@ void InOrderThraverse_Thr(BiThrTree h)
 int main() {
     BiThrTree t;
     BiThrTree h;
-    printf("测试:\n");
+    printf("输入前序二叉树:\n");
     CreateTree(&t);
     InOrderThread_Head(&h, t);
-    printf("测试:\n");
+    printf("输出中序序列:\n");
     InOrderThraverse_Thr(h);
     return 0;
 }

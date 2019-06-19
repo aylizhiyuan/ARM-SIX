@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 void Next(char*T,int *next){
+    //next数组里面的数据是{a,b,c,d,e}
     int i=1;
     next[1]=0;
     int j=0; 
@@ -17,6 +18,10 @@ void Next(char*T,int *next){
 int KMP(char * S,char * T){
     int next[10];
     Next(T,next);
+    for(int s=0;s<10;s++){
+        printf("next[%d]=%d, ",s,next[s]);
+    }
+    printf("\n");
     int i=1;
     int j=1;
     while (i<=strlen(S)&&j<=strlen(T)) {
