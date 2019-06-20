@@ -88,8 +88,8 @@ void CreateHuffmanTree(HuffmanTree *HT, int *w, int n)
         int s1, s2;
         Select(*HT, i-1, &s1, &s2);
         (*HT)[s1].parent = (*HT)[s2].parent = i;
-        (*HT)[i].left = s1;
-        (*HT)[i].right = s2;
+        (*HT)[i].left = s1; //左边的值更小一些
+        (*HT)[i].right = s2;//右边的值稍微大一些
         (*HT)[i].weight = (*HT)[s1].weight + (*HT)[s2].weight;
     }
 }
@@ -99,6 +99,8 @@ void HuffmanCoding(HuffmanTree HT, HuffmanCode *HC,int n){
     char *cd = (char *)malloc(n*sizeof(char)); //存放结点哈夫曼编码的字符串数组
     cd[n-1] = '\0';//字符串结束符
    
+   //依次遍历数组中的叶子节点{2,8,7,6,5} 
+   // ht[1] = 2,ht[2] = 8,ht[3] = 7,ht[4] = 6, ht[5] = 5
     for(int i=1; i<=n; i++){
         //从叶子结点出发，得到的哈夫曼编码是逆序的，需要在字符串数组中逆序存放
         int start = n-1;
