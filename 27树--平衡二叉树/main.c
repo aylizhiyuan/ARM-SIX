@@ -148,6 +148,7 @@ int InsertAVL(BSTree* T,ElemType e,bool* taller)
     {
         if(!InsertAVL(&(*T)->rchild,e,taller))
             return 0;
+        //这意味着插入成功    
         if (*taller)
         {
             switch ((*T)->bf)

@@ -14,6 +14,8 @@ typedef struct BiTNode
 //二叉排序树查找算法
 int SearchBST(BiTree T, KeyType key, BiTree f, BiTree *p) {
     //如果 T 指针为空，说明查找失败，令 p 指针指向查找过程中最后一个叶子结点，并返回查找失败的信息
+    //p有两种可能：第一种可能是等于查找到的节点
+    //第二种可能p指向查找失败的父节点
     if (!T) {
         *p = f;
         return FALSE;
@@ -56,6 +58,11 @@ int InsertBST(BiTree *T, ElemType e) {
     return FALSE;
 }
 //删除函数
+//p就是要删除的节点
+//第一种情况：删除的节点左子树为空
+//第二种情况：删除的节点右子树为空
+//第三种情况：删除的节点左右子树都不为空
+
 int Delete(BiTree *p)
 {
     BiTree q, s;
